@@ -1,6 +1,6 @@
 \documentclass[10pt, a4paper, oneside]{ltjsbook}
 \usepackage{amssymb,amsmath}
-\usepackage{fontspec}
+\usepackage{luatexja-fontspec}
 \usepackage[Lenny]{fncychap}
 
 % チャプターマークの設定
@@ -38,25 +38,6 @@
     \vskip \pyy}%
   \vskip 20\p@}
 \makeatother
-
-\usepackage{luacode}
-
-% フォント設定
-\begin{luacode*}
-  local USE_YUFONT = os.getenv"USE_YUFONT"
-  local USE_SOURCEHAN = os.getenv"USE_SOURCEHAN"
-  local USE_HIRAGINO = os.getenv"USE_HIRAGINO"
-  
-  if USE_YUFONT then
-    tex.sprint("\\AtBeginDocument{\\usepackage[yu-osx, nfssonly]{luatexja-preset}}")
-  elseif USE_SOURCEHAN then
-    tex.sprint("\\AtBeginDocument{\\usepackage[sourcehan-jp, nfssonly]{luatexja-preset}}")
-  elseif USE_HIRAGINO then
-    tex.sprint("\\AtBeginDocument{\\usepackage[hiragino-pro, nfssonly]{luatexja-preset}}")
-  else
-    tex.sprint("\\AtBeginDocument{\\usepackage[ipaex, nfssonly]{luatexja-preset}}")
-  end
-\end{luacode*}
 
 \usepackage[centering]{geometry}
 
@@ -130,6 +111,26 @@
   color=blue!40,
   vshift=-2em
 }
+
+% luatexja-fontspec で代替フォントを指定
+\ltjsetparameter{jacharrange={+4, +7}}
+\setmainjfont[
+  AltFont={
+    {Range="0400-"04FF, Font={Noto Serif}},
+    {Range="0590-"05FF, Font={Noto Serif Hebrew}},
+    {Range="0600-"06FF, Font={Noto Sans Arabic}},
+    {Range="0750-"077F, Font={Noto Sans Arabic}},
+    {Range="08A0-"008FF, Font={Noto Sans Arabic}},
+    {Range="FB50-"FDFF, Font={Noto Sans Arabic}},
+    {Range="FE70-"FEFF, Font={Noto Sans Arabic}},
+    {Range="10E60-"10E7F, Font={Noto Sans Arabic}},
+    {Range="1EC70-"1ECBF, Font={Noto Sans Arabic}},
+    {Range="1EE00-"1EEFF, Font={Noto Sans Arabic}},
+    {Range="0900-"097F, Font={Noto Sans Devanagari}},
+    {Range="1100-"11FF, Font={Noto Serif CJK KR}},
+    {Range="AC00-"D7AF, Font={Noto Serif CJK KR}},
+    {Range="7B80, Font={Noto Serif CJK SC}}}
+]{Noto Serif CJK JP}
 
 \begin{document}
 
